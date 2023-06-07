@@ -1,0 +1,385 @@
+[
+    {
+      "id": "a",
+      "fkey": 1,
+      "image": "https://images.pexels.com/photos/3023479/pexels-photo-3023479.jpeg?auto=compress&cs=tinysrgb&w=300&h=250&dpr=1",
+      "offer": "50%",
+      "name": "Mehfil",
+      "time": "10-15 mins ",
+      "ratting": "4.3",
+      "catagories": "Hot dogs",
+      "product": [
+        {
+          "title": "Mehfil",
+          "Pname": "Sonorans",
+          "catagories": "Hot dogs",
+          "id": "a",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5mpwnsinZKXYG7UUv87iVvKeCaIC811yBqQ&usqp=CAU",
+          "ratting": "4",
+          "Price": 199
+        },
+        {
+          "title": "Mehfil",
+          "Pname": "Michigan Red Hots",
+          "catagories": "Hot dogs",
+          "id": "b",
+          "image": "https://www.curiouscuisiniere.com/wp-content/uploads/2022/01/Shucos-Guatemalan-Hot-Dogs-0395.3.jpg.webp",
+          "ratting": "4",
+          "Price": 150
+        },
+        {
+          "title": "Mehfil",
+          "Pname": "Slaw Dogs ",
+          "catagories": "Hot dogs",
+          "id": "c",
+          "image": "https://www.shutterstock.com/image-photo/three-delicious-hotdogs-on-dark-260nw-1391188226.jpg",
+          "ratting": "3.4",
+          "Price": 149
+        },
+        {
+          "title": "Mehfil",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Hot dogs",
+          "id": "d",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUqSyglkgNzhHZRB7LMEHoYqpXJKxZz1-4Lw&usqp=CAU",
+          "ratting": "3.4",
+          "Price": 149
+        }
+      ]
+    },
+    {
+      "id": "b ",
+  
+      "fkey": 1,
+      "image": "https://images.pexels.com/photos/1603901/pexels-photo-1603901.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "offer": "40%",
+      "name": "Maharaj",
+      "time": "10-15 mins ",
+      "ratting": "4.3",
+      "catagories": "Hot dogs",
+      "product": [
+        {
+          "title": "Maharaj",
+          "Pname": "Sonorans",
+          "catagories": "Hot dogs",
+          "id": "e",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5mpwnsinZKXYG7UUv87iVvKeCaIC811yBqQ&usqp=CAU",
+          "ratting": "3.4",
+          "Price": 199
+        },
+        {
+          "title": "Maharaj",
+          "Pname": "Michigan Red Hots",
+          "catagories": "Hot dogs",
+          "id": "f",
+          "image": "https://www.curiouscuisiniere.com/wp-content/uploads/2022/01/Shucos-Guatemalan-Hot-Dogs-0395.3.jpg.webp",
+          "ratting": "3.4",
+          "Price": 150
+        },
+        {
+          "title": "Maharaj",
+          "Pname": "Slaw Dogs ",
+          "catagories": "Hot dogs",
+          "id": "g",
+          "image": "https://www.shutterstock.com/image-photo/three-delicious-hotdogs-on-dark-260nw-1391188226.jpg",
+          "ratting": "3.4",
+          "Price": 149
+        },
+        {
+          "title": "Maharaj",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Hot dogs",
+          "id": "h",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUqSyglkgNzhHZRB7LMEHoYqpXJKxZz1-4Lw&usqp=CAU",
+          "ratting": "3.4",
+          "Price": 149
+        }
+      ]
+    },
+    {
+      "id": "c",
+      "fkey": 1,
+      "image": "https://www.thespruceeats.com/thmb/6XStV7l6VnuP8nzfzaBagW_VPq4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Italian-hot-dog-5225454-hero-01-bfad6902865e4517883693c6eb0a96f2.jpg ",
+      "offer": "60%",
+      "name": "Kfc",
+      "time": "10-15 mins",
+      "ratting": "4.3",
+      "catagories": "Hot dogs",
+      "product": [
+        {
+          "title": "Kfc",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Hot dogs",
+          "id": "i",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5mpwnsinZKXYG7UUv87iVvKeCaIC811yBqQ&usqp=CAU",
+          "ratting": "3.4",
+          "Price": 199
+        },
+        {
+          "title": "Kfc",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Hot dogs",
+          "id": "j",
+          "image": "https://www.curiouscuisiniere.com/wp-content/uploads/2022/01/Shucos-Guatemalan-Hot-Dogs-0395.3.jpg.webp",
+          "ratting": "3.4",
+          "Price": 150
+        },
+        {
+          "title": "Kfc",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Hot dogs",
+          "id": "k",
+          "image": "https://www.shutterstock.com/image-photo/three-delicious-hotdogs-on-dark-260nw-1391188226.jpg",
+          "ratting": "3.4",
+          "Price": 149
+        },
+        {
+          "title": "Kfc",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Hot dogs",
+          "id": "l",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUqSyglkgNzhHZRB7LMEHoYqpXJKxZz1-4Lw&usqp=CAU",
+          "ratting": "3.4",
+          "Price": 149
+        }
+      ]
+    },
+    {
+      "id": "d",
+      "fkey": 1,
+      "image": "https://media-cdn.tripadvisor.com/media/photo-s/0f/17/eb/b9/speisen.jpg",
+      "offer": "60%",
+      "name": "Mehfil",
+      "time": "10-15 mins",
+      "ratting": "4.3",
+      "catagories": "Hot dogs",
+      "product": [
+        {
+          "title": "Mehfil",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Hot dogs",
+          "id": "m",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5mpwnsinZKXYG7UUv87iVvKeCaIC811yBqQ&usqp=CAU",
+          "ratting": "3.4",
+          "Price": 199
+        }
+      ]
+    },
+    {
+      "id": "e",
+      "fkey": 2,
+      "image": "https://images.pexels.com/photos/1059905/pexels-photo-1059905.jpeg?cs=srgb&dl=pexels-chan-walrus-1059905.jpg&fm=jpg",
+      "offer": "60%",
+      "name": "Maharaj",
+      "time": "10-15 mins",
+      "ratting": "4.1",
+      "catagories": "Salads",
+      "product": [
+        {
+          "title": "Maharaj",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Salads",
+          "id": "n",
+          "image": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Salad_platter02_crop.jpg",
+          "ratting": "3.4",
+          "Price": 199
+        },
+        {
+          "title": "Maharaj",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Salads",
+          "id": "ac",
+          "image": "https://www.averiecooks.com/wp-content/uploads/2016/06/12superfoodssalad-9-720x720.jpg",
+          "ratting": "3.4",
+          "Price": 199
+        },
+        {
+          "title": "Maharaj",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Salads",
+          "id": "o",
+          "image": "https://www.inspiredtaste.net/wp-content/uploads/2018/12/Easy-Pasta-Salad-Recipe-2-1200.jpg",
+          "ratting": "3.4",
+          "Price": 199
+        }
+      ]
+    },
+    {
+      "id": "f",
+      "fkey": 2,
+  
+      "image": "https://www.preciouscore.com/wp-content/uploads/2020/05/lettuce-salad-recipe.jpg",
+      "offer": "60%",
+      "name": "Mehfil",
+      "time": "10-15 mins",
+      "catagories": "Salads",
+      "ratting": "4.1",
+      "product": [
+        {
+          "title": "Mehfil",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Salads",
+          "id": "p",
+          "image": "https://www.inspiredtaste.net/wp-content/uploads/2018/12/Easy-Pasta-Salad-Recipe-2-1200.jpg",
+          "ratting": "3.4",
+          "Price": 199
+        },
+        {
+          "title": "Mehfil",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Salads",
+          "id": "q",
+          "image": "https://www.averiecooks.com/wp-content/uploads/2016/06/12superfoodssalad-9-720x720.jpg",
+          "ratting": "3.4",
+          "Price": 199
+        },
+        {
+          "title": "Mehfil",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Salads",
+          "id": "r",
+          "image": "https://www.inspiredtaste.net/wp-content/uploads/2018/12/Easy-Pasta-Salad-Recipe-2-1200.jpg",
+          "ratting": "3.4",
+          "Price": 199
+        }
+      ]
+    },
+    {
+      "id": "g",
+      "fkey": 3,
+      "image": "https://c.ndtvimg.com/2022-06/gp4k2jro_burgers_625x300_20_June_22.jpg?im=FeatureCrop,algorithm=dnn,width=620,height=350?im=FaceCrop,algorithm=dnn,width=1200,height=886",
+      "offer": "60%",
+      "name": "Mehfil",
+      "time": "10-15 mins",
+      "catagories": "Burger",
+      "ratting": "4.1",
+      "product": [
+        {
+          "title": "Mehfil",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Burger",
+          "id": "s",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-DfD_oXuwvaiDa2ATeaUFcvIqZTycTiDDQSef3-Zh&s",
+          "ratting": "3.4",
+          "Price": 199
+        },
+        {
+          "title": "Mehfil",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Burger",
+          "id": "t",
+          "image": "https://plus.unsplash.com/premium_photo-1673581152330-77f2f373ce54?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YnVyZ2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+          "ratting": "3.4",
+          "Price": 199
+        }
+      ]
+    },
+    {
+      "id": "h",
+      "fkey": 3,
+      "image": "https://www.chilitochoc.com/wp-content/uploads/2020/05/crispy-chicken-burger-e1615289026561.jpg",
+      "offer": "60%",
+      "name": "Kfc",
+      "time": "10-15 mins",
+      "catagories": "Burger",
+      "ratting": "4.1",
+      "product": [
+        {
+          "title": "Kfc",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Burger",
+          "id": "u",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-DfD_oXuwvaiDa2ATeaUFcvIqZTycTiDDQSef3-Zh&s",
+          "ratting": "3.4",
+          "Price": 199
+        },
+        {
+          "title": "Kfc",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Burger",
+          "id": "v",
+          "image": "https://plus.unsplash.com/premium_photo-1673581152330-77f2f373ce54?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YnVyZ2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+          "ratting": "3.4",
+          "Price": 199
+        }
+      ]
+    },
+    {
+      "id": "i",
+      "fkey": 4,
+      "image": "https://cdn.britannica.com/08/177308-050-94D9D6BE/Food-Pizza-Basil-Tomato.jpg",
+      "offer": "60%",
+      "name": "Kfc",
+      "time": "10-15 mins",
+      "catagories": "Pizza",
+      "ratting": "4.1",
+      "product": [
+        {
+          "title": "Mehfil",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Pizza",
+          "id": "w",
+          "image": "https://res.cloudinary.com/swiggy/image/upload/f_auto,q_auto,fl_lossy/jp8pv8p6qgyy6jrczblm",
+          "ratting": "3.4",
+          "Price": 199
+        },
+        {
+          "title": "Mehfil",
+          "catagories": "Pizza",
+          "Pname": "Flo's Hot Dogs",
+          "id": "x",
+          "image": "https://www.recipetineats.com/wp-content/uploads/2020/05/Pepperoni-Pizza_5-SQjpg.jpg",
+          "ratting": "3.4",
+          "Price": 199
+        },
+        {
+          "title": "Mehfil",
+          "Pname": "Flo's Hot Dogs",
+          "catagories": "Pizza",
+          "id": "y",
+          "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80",
+          "ratting": "3.4",
+          "Price": 199
+        }
+      ]
+    },
+    {
+      "id": "j",
+      "fkey": 5,
+      "image": "https://media.istockphoto.com/id/1263686908/photo/mixed-salty-snack-flat-lay-table-scene-on-a-wood-background.jpg?b=1&s=170667a&w=0&k=20&c=jwScZKWlgykwVi2pykyXsW-j6MlrahqMA_kapECwcEE=",
+      "offer": "60%",
+      "name": "Reliance ",
+      "time": "10-15 mins",
+      "ratting": "4.1",
+      "product": [
+        {
+          "title": "Mehfil",
+  
+          "Pname": "Samosha",
+          "catagories": "Reliance",
+          "id": "z",
+          "image": "https://content.jdmagicbox.com/comp/thane/i6/022pxx22.xx22.190107210054.n2i6/catalogue/hotel-om-snacks-corner-kalyan-city-thane-home-delivery-restaurants-18fx90aerj.jpg",
+          "ratting": "3.4",
+          "Price": 199
+        },
+        {
+          "title": "Mehfil",
+          "Pname": "Snacks",
+          "catagories": "Reliance",
+          "id": "aa",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTUP81ZkSypmEvYDT_VkWYPpklXb-Idz2bWQ&usqp=CAU",
+          "ratting": "4",
+          "Price": 199
+        },
+        {
+          "title": "Mehfil",
+          "Pname": "Snacks",
+          "catagories": "Reliance",
+          "id": "ab",
+          "image": "https://static01.eu/catalogosyofertas.com.ar/images/uploads/071120/snacs-dearroz-dos-hermanos-varios-sabores-80g27746.jpg",
+          "ratting": "3.4",
+          "Price": 49
+        }
+      ]
+    }
+  ]

@@ -12,6 +12,8 @@ const palette = {
   cobalt: '#1338be',
   WebSafeOrange: '#ff9900',
   indgoWhite: '#F7F8FA',
+  Cultured:'##F7F7F7',
+  lightOrange:'#F7DB91',
 };
 const theme = createTheme({
   colors: {
@@ -23,12 +25,16 @@ const theme = createTheme({
     mainBg: palette.WhiteSmoke,
     iconHillight: palette.carrot,
     profileColor: palette.WebSafeOrange,
-    backIcon: palette.WhiteSmoke,
+    backIcon: palette.Cultured,
     signInButton: palette.Azure,
     profileMainBg: palette.indgoWhite,
     profileNav: palette.white,
     profileCard: palette.white,
     profileCemeraIcon: palette.cobalt,
+    selectedCetagory:palette.lightOrange,
+
+  
+
 	
   },
   spacing: {

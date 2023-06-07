@@ -1,4 +1,11 @@
-import {View, Text, Image, Pressable, PermissionsAndroid, Platform} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  Pressable,
+  PermissionsAndroid,
+  Platform,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../components/redux/hook';
 import {LogOut, checkLogin} from '../../components/redux/slice/AuthSlice';
@@ -10,16 +17,23 @@ const Icon = '../../../Assets/cemarIcon.png';
 import ImagePicker from 'react-native-image-picker';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import {check, PERMISSIONS, request} from 'react-native-permissions';
+import {StackActions, useNavigation} from '@react-navigation/native';
 
 const themes = theme.colors;
 const Profile = () => {
   const [profilePicture, setProfilePicture] = useState(null);
   const isLogged = useAppSelector(state => state.AuthData.isLogged);
   const dispatch = useAppDispatch();
-
+  const navigation = useNavigation();
   useEffect(() => {
     requestPermission();
-  },[]);
+  }, []);
+
+  // const resetAction = StackActions.reset({
+  //   key:null,
+  //   index: 0, // Reset the stack to index 0 (first screen)
+  //   routes: [{name: 'profile'}], // Replace all routes with the Home screen
+  // });
 
   const requestPermission = async () => {
     try {
@@ -31,7 +45,7 @@ const Profile = () => {
             message: 'App needs access to your storage to select an image.',
             buttonPositive: 'OK',
             buttonNegative: 'Cancel',
-          }
+          },
         );
         if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
           console.log('Storage permission denied');
@@ -44,7 +58,7 @@ const Profile = () => {
           return;
         }
       }
-      
+
       // Permission granted, proceed with opening the image picker
       handleChoosePicture();
     } catch (error) {
@@ -100,6 +114,17 @@ const Profile = () => {
           <ProfileData data={'Phone Number'} value={'+917873537019'} />
           <ProfileData data={'Gander'} value={'Male'} />
           <ProfileData data={'Date of Birth'} value={'09-04-2000'} />
+          <View style={{alignItems: 'center'}}>
+            <CustumButton
+              buttonName="Log Out"
+              height={40}
+              width={120}
+              onPress={() => {
+               navigation.canGoBack();
+                navigation.navigate('LOGIN');
+              }}
+            />
+          </View>
         </View>
         <View
           style={{
