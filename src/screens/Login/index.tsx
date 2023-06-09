@@ -75,12 +75,17 @@ const Login = () => {
             fontSize: 17,
           }}
         />
+        <View style={{alignItems:'center'}}>
         <CustumInput
           prefix={true}
           maxChar={10}
           keyboardType={'phone-pad'}
+          width={270}
+          height={50}
+          color={'#FFFF'}
           onHandleChange={(val) => setPhoneNumber(`+91${val}`)}
         />
+        </View>
       </View>
       <View style={{alignItems: 'center', marginBottom: 25}}>
         <CustumButton

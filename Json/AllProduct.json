@@ -2,7 +2,7 @@
     {
       "id": "a",
       "fkey": 1,
-      "image": "https://images.pexels.com/photos/3023479/pexels-photo-3023479.jpeg?auto=compress&cs=tinysrgb&w=300&h=250&dpr=1",
+      "image": "https://img.freepik.com/free-vector/fast-food-sticker-design-with-hot-dog-isolated_1308-67129.jpg?w=826&t=st=1686150582~exp=1686151182~hmac=6da01dbe619e077cf287674fbb42c0fdec8128f1b32b917d815be5380b473477",
       "offer": "50%",
       "name": "Mehfil",
       "time": "10-15 mins ",
@@ -51,7 +51,7 @@
       "id": "b ",
   
       "fkey": 1,
-      "image": "https://images.pexels.com/photos/1603901/pexels-photo-1603901.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "image": "https://img.freepik.com/free-vector/fast-food-sticker-design-with-hot-dog-isolated_1308-67129.jpg?w=826&t=st=1686150582~exp=1686151182~hmac=6da01dbe619e077cf287674fbb42c0fdec8128f1b32b917d815be5380b473477",
       "offer": "40%",
       "name": "Maharaj",
       "time": "10-15 mins ",
@@ -99,7 +99,7 @@
     {
       "id": "c",
       "fkey": 1,
-      "image": "https://www.thespruceeats.com/thmb/6XStV7l6VnuP8nzfzaBagW_VPq4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Italian-hot-dog-5225454-hero-01-bfad6902865e4517883693c6eb0a96f2.jpg ",
+      "image": "https://img.freepik.com/free-vector/fast-food-sticker-design-with-hot-dog-isolated_1308-67129.jpg?w=826&t=st=1686150582~exp=1686151182~hmac=6da01dbe619e077cf287674fbb42c0fdec8128f1b32b917d815be5380b473477 ",
       "offer": "60%",
       "name": "Kfc",
       "time": "10-15 mins",
@@ -147,7 +147,7 @@
     {
       "id": "d",
       "fkey": 1,
-      "image": "https://media-cdn.tripadvisor.com/media/photo-s/0f/17/eb/b9/speisen.jpg",
+      "image": "https://img.freepik.com/free-vector/fast-food-sticker-design-with-hot-dog-isolated_1308-67129.jpg?w=826&t=st=1686150582~exp=1686151182~hmac=6da01dbe619e077cf287674fbb42c0fdec8128f1b32b917d815be5380b473477",
       "offer": "60%",
       "name": "Mehfil",
       "time": "10-15 mins",
@@ -168,7 +168,7 @@
     {
       "id": "e",
       "fkey": 2,
-      "image": "https://images.pexels.com/photos/1059905/pexels-photo-1059905.jpeg?cs=srgb&dl=pexels-chan-walrus-1059905.jpg&fm=jpg",
+      "image": "https://th.bing.com/th/id/OIP.4AwZ9och_WKnDmhaH8BXNQHaFO?pid=ImgDet&rs=1",
       "offer": "60%",
       "name": "Maharaj",
       "time": "10-15 mins",
@@ -208,7 +208,7 @@
       "id": "f",
       "fkey": 2,
   
-      "image": "https://www.preciouscore.com/wp-content/uploads/2020/05/lettuce-salad-recipe.jpg",
+      "image": "https://th.bing.com/th/id/OIP.4AwZ9och_WKnDmhaH8BXNQHaFO?pid=ImgDet&rs=1",
       "offer": "60%",
       "name": "Mehfil",
       "time": "10-15 mins",
@@ -247,7 +247,7 @@
     {
       "id": "g",
       "fkey": 3,
-      "image": "https://c.ndtvimg.com/2022-06/gp4k2jro_burgers_625x300_20_June_22.jpg?im=FeatureCrop,algorithm=dnn,width=620,height=350?im=FaceCrop,algorithm=dnn,width=1200,height=886",
+      "image": "https://th.bing.com/th/id/OIP.cbExHEBoI5yiZc9_WtzJ-gHaFW?pid=ImgDet&rs=1",
       "offer": "60%",
       "name": "Mehfil",
       "time": "10-15 mins",
@@ -277,7 +277,7 @@
     {
       "id": "h",
       "fkey": 3,
-      "image": "https://www.chilitochoc.com/wp-content/uploads/2020/05/crispy-chicken-burger-e1615289026561.jpg",
+      "image": "https://th.bing.com/th/id/OIP.cbExHEBoI5yiZc9_WtzJ-gHaFW?pid=ImgDet&rs=1",
       "offer": "60%",
       "name": "Kfc",
       "time": "10-15 mins",
@@ -307,7 +307,7 @@
     {
       "id": "i",
       "fkey": 4,
-      "image": "https://cdn.britannica.com/08/177308-050-94D9D6BE/Food-Pizza-Basil-Tomato.jpg",
+      "image": "https://th.bing.com/th/id/OIP.oTjmwpP-IzoldRuES05j3AHaDt?pid=ImgDet&rs=1",
       "offer": "60%",
       "name": "Kfc",
       "time": "10-15 mins",
@@ -346,7 +346,7 @@
     {
       "id": "j",
       "fkey": 5,
-      "image": "https://media.istockphoto.com/id/1263686908/photo/mixed-salty-snack-flat-lay-table-scene-on-a-wood-background.jpg?b=1&s=170667a&w=0&k=20&c=jwScZKWlgykwVi2pykyXsW-j6MlrahqMA_kapECwcEE=",
+      "image": "https://th.bing.com/th/id/OIP.5DH043JRvf9lKJQ9-jEeKAHaFu?pid=ImgDet&rs=1",
       "offer": "60%",
       "name": "Reliance ",
       "time": "10-15 mins",

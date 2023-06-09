@@ -13,11 +13,13 @@ const palette = {
   WebSafeOrange: '#ff9900',
   indgoWhite: '#F7F8FA',
   Cultured:'##F7F7F7',
-  lightOrange:'#F7DB91',
+  lightYellow:'#F7DB91',
+  lightOrange:'#F9AA87',
+
 };
 const theme = createTheme({
   colors: {
-    spalshScreen: palette.lightGreen,
+    spalshScreen: palette.lightOrange,
     styleTextColor: palette.white,
     primaryTextColor: palette.black,
     secondaryTextColor: palette.grey,
@@ -31,7 +33,7 @@ const theme = createTheme({
     profileNav: palette.white,
     profileCard: palette.white,
     profileCemeraIcon: palette.cobalt,
-    selectedCetagory:palette.lightOrange,
+    selectedCetagory:palette.lightYellow,
 
   
 

@@ -7,6 +7,8 @@ import Like from '../../screens/Like';
 import Profile from '../../screens/Profile';
 import {theme} from '../../utils/theme';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Delevery from '../../screens/Delevery';
+import Cart from '../../screens/Cart';
 const BottomNavigation = () => {
   const BottomTab = createBottomTabNavigator();
   return (
@@ -45,13 +47,13 @@ const BottomNavigation = () => {
         }}
       />
       <BottomTab.Screen
-        name="search"
-        component={Search}
+        name="DELEVERY"
+        component={Delevery}
         options={{
           tabBarIcon: ({focused}) => {
             return (
               <FontAwesome
-                name="search"
+                name="gift"
                 size={25}
                 color={focused?theme.colors.iconHillight:theme.colors.primaryTextColor}
               />
@@ -60,13 +62,13 @@ const BottomNavigation = () => {
         }}
       />
       <BottomTab.Screen
-        name="like"
-        component={Like}
+        name="CART"
+        component={Cart}
         options={{
           tabBarIcon: ({focused}) => {
             return (
               <FontAwesome
-                name="heart"
+                name="opencart"
                 size={25}
                 color={focused?theme.colors.iconHillight:theme.colors.primaryTextColor}
               />

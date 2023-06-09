@@ -18,6 +18,7 @@ import ImagePicker from 'react-native-image-picker';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import {check, PERMISSIONS, request} from 'react-native-permissions';
 import {StackActions, useNavigation} from '@react-navigation/native';
+import BoxShadow from '../../components/BoxShadow';
 
 const themes = theme.colors;
 const Profile = () => {
@@ -98,6 +99,7 @@ const Profile = () => {
   return (
     <View style={{flex: 1, backgroundColor: themes.profileMainBg}}>
       <Header />
+      <BoxShadow>
       <View style={{marginTop: 40}}>
         <View
           style={{
@@ -108,6 +110,7 @@ const Profile = () => {
             marginVertical: 46,
             backgroundColor: themes.profileCard,
             justifyContent: 'space-evenly',
+            borderRadius:12
           }}>
           <View style={{marginTop: 120}}></View>
           <ProfileData data={'User Name'} value={'Satyabrata'} />
@@ -153,7 +156,9 @@ const Profile = () => {
             />
           </Pressable>
         </View>
+        
       </View>
+      </BoxShadow>
     </View>
   );
 };
