@@ -1,4 +1,12 @@
-import {View, Text, Pressable, Alert, Modal} from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  Alert,
+  Modal,
+  StyleSheet,
+  Image,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {theme} from '../../utils/theme';
 import CText from '../../components/Ctext';
@@ -10,15 +18,16 @@ import CustumButton from '../../components/CustumButton';
 import {getApps, initializeApp} from 'firebase/app';
 import {ReactNativeFirebase} from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
-import Loading from '../../components/Loading';
-import OtpVerify from '../OtpVerify';
+
+import * as Animatable from 'react-native-animatable';
+
 const thems = theme.colors;
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [confirmation, setConfirmation] = useState();
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
-  console.log('phoneNumber', phoneNumber)
+  console.log('phoneNumber', phoneNumber);
   //   if (getApps().length === 0) {
   //     const firebaseConfig = {
   //       apiKey: 'AIzaSyCXqdu2nhRE6FGVuprD1glbCJS_Xcvw90k',
@@ -42,7 +51,7 @@ const Login = () => {
       setConfirmation(confirmationResult);
 
       Alert.alert('OTP Sent!', 'Please check your phone for the OTP.');
-      navigation.navigate('OTPVERIFY', {phoneNumber:phoneNumber});
+      navigation.navigate('OTPVERIFY', {phoneNumber: phoneNumber});
       setLoading(false);
     } catch (error) {
       console.log('Sign-in error:', error);
@@ -75,16 +84,16 @@ const Login = () => {
             fontSize: 17,
           }}
         />
-        <View style={{alignItems:'center'}}>
-        <CustumInput
-          prefix={true}
-          maxChar={10}
-          keyboardType={'phone-pad'}
-          width={270}
-          height={50}
-          color={'#FFFF'}
-          onHandleChange={(val) => setPhoneNumber(`+91${val}`)}
-        />
+        <View style={{alignItems: 'center'}}>
+          <CustumInput
+            prefix={true}
+            maxChar={10}
+            keyboardType={'phone-pad'}
+            width={270}
+            height={50}
+            color={'#FFFF'}
+            onHandleChange={val => setPhoneNumber(`+91${val}`)}
+          />
         </View>
       </View>
       <View style={{alignItems: 'center', marginBottom: 25}}>
@@ -98,26 +107,22 @@ const Login = () => {
       </View>
       <Modal
         visible={loading}
-        transparent
+        transparent={true}
         animationType="fade"
-        style={{opacity: 0.25}}>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          }}>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: 40,
-              width: 70,
-              backgroundColor: 'white',
-            }}>
-            <Text>..Loading</Text>
-          </View>
+        style={{opacity: 0}}>
+        <View style={styles.modalContainer}>
+          <Animatable.View
+            animation="slideInRight"
+            duration={1000}
+            iterationCount="infinite"
+            style={styles.carContainer}>
+            <Image
+              source={{
+                uri: 'https://www.pngarts.com/files/7/Food-Delivery-Service-PNG-Transparent-Image.png',
+              }}
+              style={{height: 180, width: 190}}
+            />
+          </Animatable.View>
         </View>
       </Modal>
     </View>
@@ -125,3 +130,17 @@ const Login = () => {
 };
 
 export default Login;
+const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width:300,
+    height:120
+  },
+  carContainer: {
+    width: 300,
+    height: 50,
+   
+  },
+});

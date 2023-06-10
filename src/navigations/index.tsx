@@ -9,7 +9,7 @@ const Navigation = () => {
     useEffect(() => {
 		setTimeout(() => {
 			setShowSplashScreen(false);
-		}, 500);
+		}, 1000);
 	}, []);
     if(showSplashScreen){
         return <SpalshScreen/>
