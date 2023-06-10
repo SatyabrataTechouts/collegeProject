@@ -1,29 +1,29 @@
 import {View, Text, Image} from 'react-native';
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import CText from '../../components/Ctext';
 import {theme} from '../../utils/theme';
 import {FlatList, ScrollView} from 'react-native-gesture-handler';
 import BoxShadow from '../../components/BoxShadow';
 import Feather from 'react-native-vector-icons/Feather';
 import {getResponsiveGenHP} from '../../utils';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../components/configuration';
+import { useAppSelector } from '../../components/redux/hook';
 
-const data = [
-  {
-    id: 1,
-    image: 'https://img.lovepik.com/element/40078/3158.png_1200.png',
-    name: 'xyz',
-    price: 123,
-    quentity: 1,
-  },
-  {
-    id: 2,
-    image: 'https://img.lovepik.com/element/40078/3158.png_1200.png',
-    name: 'pqrs',
-    price: 123,
-    quentity: 1,
-  },
-];
 const Cart = () => {
+  const [data,setData]=useState();
+  const uid=useAppSelector(state=>state.AuthData.uid);
+  useEffect(() => {
+    getData();
+  })
+  
+  const getData=async()=>{
+    const docRef = await getDoc(doc(db, "cart",uid)) ;
+   setData(docRef.data().cartData);
+    
+  }
+ 
+ 
   const renderData = ({item}: any) => {
     return (
       <View>
@@ -45,7 +45,7 @@ const Cart = () => {
                 style={{height: 96, width: 80}}
               />
             </View>
-            <View style={{marginVertical: 12, marginHorizontal: 12}}>
+            <View style={{marginVertical: 12,width:90}}>
               <CText
                 text={item.name}
                 style={{
@@ -74,7 +74,7 @@ const Cart = () => {
               }}>
               <Feather name="minus" size={18} color={'black'} />
               <CText
-                text={item.quentity}
+                text={item.qty}
                 style={{color: theme.colors.primaryTextColor, fontSize: 15}}
               />
               <Feather name="plus-circle" size={18} color={'black'} />
@@ -85,6 +85,7 @@ const Cart = () => {
     );
   };
   return (
+    data&&
     <View style={{flex: 1, backgroundColor: '#F8F4F0'}}>
       <CText
         text="My Cart"

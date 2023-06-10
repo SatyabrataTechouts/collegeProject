@@ -23,25 +23,27 @@ import firebase from '@react-native-firebase/app';
 
 
 import { firestore } from '../../../App';
+import { db } from '../../components/configuration';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { useAppSelector } from '../../components/redux/hook';
 const Plp = ({route, navigation}: any) => {
-    
+ 
+    // console.log('uid===', uid)
   const data = route.params.data;
   const refRBSheet = useRef();
   console.log('data', data);
-  const cardHeight = 300;
+  const cardHeight = 347;
   const handlePickUser = useCallback(
     (item: any) => {
       magicSheet.show(() => <Bottom item={item} />, {
-        snapPoints: [cardHeight, '40%'],
+        snapPoints: [cardHeight, '45%'],
         backgroundStyle: {backgroundColor: theme.colors.iconHillight},
       });
     },
 
     [],
   );
- const  AddToCart=(item)=>{
 
- }
   const iteratePage = (item: any) => {
     console.log('item', item);
     return (
@@ -139,16 +141,67 @@ const Plp = ({route, navigation}: any) => {
 };
 
 export default Plp;
-const Bottom = (item:any) => {
-  const AddToCart=async({item}:any)=>{
-    try {
-      await firestore.collection('Cart').add(item);
-      console.log('Item added to cart successfully');
-    } catch (error) {
-      console.error('Error adding item to cart:', error);
-    }
+const Bottom = (item) => {
+  const uid=useAppSelector(state=>state.AuthData.uid);
+  console.log('hii', uid)
+  const AddToCart=async(item:any)=>{
+    let cartData= [];
+    
+   let data= {
+      id:item.id,
+      name:item.Pname,
+      price:item.Price,
+      image:item.image,
+      qty:1,
+
+   }
+   
+   const docRef =await getDoc(doc(db, "cart", uid)) ;
+      cartData= docRef.data().cartData;
+  
+  
+  console.log('cartData', docRef.data().cartData.length)
+  if(cartData.length==0){
+   
+    cartData.push(data)
+    console.log('====',cartData )
+    try{
+      await  setDoc(doc(db,'cart',uid),{
+        cartData
+      }
+      )
+    
+      }
+     catch(e){
+     console.log('e', e)
+     }
   }
-    console.log('item.image', item.item.image)
+  else{
+    const existingItem = cartData.find(food => food.id == data.id);
+   if (existingItem) {
+      
+       cartData=( cartData.map(existingFood =>
+          existingFood.id === item.id
+            ? {...existingFood, qty: existingFood.qty + 1}
+            : existingFood,
+        )
+       )
+    }
+     else {
+     cartData.push(data);
+    }
+   try{
+    await  updateDoc(doc(db,'cart',uid),{
+      cartData
+    }
+    )
+  
+    }
+   catch(e){
+   console.log('e', e)
+   }
+  }
+}
   return (
     <View style={{justifyContent:'space-around',flex:1}}>
       <CText

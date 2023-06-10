@@ -2,9 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import auth from '@react-native-firebase/auth'; 
 export interface isLoggedState{
     isLogged:boolean;
+    uid:string;
 }
  const initialState:isLoggedState={
-    isLogged:false
+    isLogged:false,
+    uid:''
  }
 const AuthSlice=createSlice({
     name:'AuthData',
@@ -16,6 +18,7 @@ const AuthSlice=createSlice({
               // User is logged in
               console.log('User is logged in:', user.uid);
              initialState.isLogged=true;
+             initialState.uid=user.uid;
             } else {
               // User is not logged in
               console.log('User is not logged in');
