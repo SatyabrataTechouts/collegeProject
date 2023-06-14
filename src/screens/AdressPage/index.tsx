@@ -1,87 +1,77 @@
-import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {useIsFocused} from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+import React, {useId, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
+import uuid from 'react-native-uuid';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useAppSelector} from '../../components/redux/hook';
+import {doc, setDoc, updateDoc} from 'firebase/firestore';
+import {db} from '../../components/configuration';
 const Address = ({navigation}) => {
-  const [addressList, setAddressList] = useState([]);
-  const isFocused = useIsFocused();
-  const [selectedAddress, setSelectedAddress] = useState('');
-  // useEffect(() => {
-  //   getAddressList();
-  // }, [isFocused]);
-  // const getAddressList = async () => {
-  //   const userId = await AsyncStorage.getItem('USERID');
-  //   const addressId = await AsyncStorage.getItem('ADDRESS');
-  //   const user = await firestore().collection('users').doc(userId).get();
-  //   let tempDart = [];
-  //   tempDart = user._data.address;
-  //   tempDart.map(item => {
-  //     if (item.addressId == addressId) {
-  //       item.selected = true;
-  //     } else {
-  //       item.selected = false;
-  //     }
-  //   });
-  //   setAddressList(tempDart);
-  // };
-  // const saveDeafultAddress = async item => {
-  //   await AsyncStorage.setItem('ADDRESS', item.addressId);
-  //   let tempDart = [];
-  //   tempDart = addressList;
-  //   tempDart.map(itm => {
-  //     if (itm.addressId == item.addressId) {
-  //       itm.selected = true;
-  //     } else {
-  //       itm.selected = false;
-  //     }
-  //   });
+  const [street, setStreet] = useState('');
+  const [city, setCity] = useState('');
+  const [pincode, setPincode] = useState('');
+  const [mobile, setMobile] = useState('');
+  const userId = useAppSelector(state => state.AuthData.uid);
+  const saveAddress = async () => {
+    const addressId = uuid.v4();
 
-  //   let temp = [];
-
-  //   tempDart.map(item => {
-  //     temp.push(item);
-  //   });
-  //   setAddressList(temp);
-  // };
+    const user = await firestore().collection('user').doc(userId).get();
+    let tempDart = [];
+    console.log('user', user._data);
+    tempDart=user._data.address;
+    tempDart.push({street, city, pincode, mobile, addressId});
+    user._data
+      ? await updateDoc(doc(db, 'user', userId), {
+          address: tempDart,
+        }).then(() => navigation.goBack())
+      : await setDoc(doc(db, 'user', userId), {
+          address: tempDart,
+        })
+          .then(() => navigation.goBack())
+          .catch(e => console.log('e', e));
+  };
   return (
     <View style={styles.container}>
-      <FlatList
-        data={addressList}
-        renderItem={({item, index}) => {
-          return (
-            <View
-              style={[
-                styles.addressItem,
-                {marginBottom: index == addressList.length - 1 ? 100 : 10},
-              ]}>
-              <View>
-                {/* <Text>{'Street: ' + item.street}</Text>
-                <Text>{'City: ' + item.city}</Text>
-                <Text>{'Pincode: ' + item.pincode}</Text>
-                <Text>{'Mobile: ' + item.mobile}</Text> */}
-              </View>
-              {item== true ? (
-                <Text>default</Text>
-              ) : (
-                <TouchableOpacity
-                  style={styles.btn}
-                  onPress={() => {
-                    // saveDeafultAddress(item);
-                  }}>
-                  <Text style={{color: '#fff'}}>Set Default</Text>
-                </TouchableOpacity>
-              )}
-            </View>
-          );
-        }}
+      <TextInput
+        style={styles.inputStyle}
+        placeholder={'Enter Street'}
+        value={street}
+        onChangeText={txt => setStreet(txt)}
+      />
+      <TextInput
+        style={styles.inputStyle}
+        placeholder={'Enter City '}
+        value={city}
+        onChangeText={txt => setCity(txt)}
+      />
+      <TextInput
+        style={styles.inputStyle}
+        placeholder={'Enter Pincode'}
+        value={pincode}
+        keyboardType="number-pad"
+        onChangeText={txt => setPincode(txt)}
+      />
+      <TextInput
+        style={styles.inputStyle}
+        placeholder={'Enter Contact '}
+        value={mobile}
+        maxLength={10}
+        keyboardType="number-pad"
+        onChangeText={txt => setMobile(txt)}
       />
       <TouchableOpacity
         style={styles.addNewBtn}
         onPress={() => {
-          navigation.navigate('AddNewAddress');
+          //   navigation.navigate('AddNewAddress');
+          saveAddress();
         }}>
-        <Text style={styles.btnText}>Add New Address</Text>
+        <Text style={styles.btnText}>Save Address</Text>
       </TouchableOpacity>
     </View>
   );
@@ -91,6 +81,15 @@ export default Address;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  inputStyle: {
+    paddingLeft: 20,
+    height: 50,
+    alignSelf: 'center',
+    marginTop: 30,
+    borderWidth: 0.5,
+    borderRadius: 10,
+    width: '90%',
   },
   addNewBtn: {
     width: '90%',
@@ -107,24 +106,5 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 16,
     fontWeight: '600',
-  },
-  addressItem: {
-    width: '90%',
-
-    backgroundColor: '#fff',
-    elevation: 4,
-    alignSelf: 'center',
-    marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 20,
-    alignItems:'center'
-  },
-  btn: {
-    backgroundColor: 'green',
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 100,
   },
 });

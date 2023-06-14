@@ -26,7 +26,7 @@ const OtpVerify = ({navigation, route}: any) => {
     }
   };
   const handleOTPVerification = async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
       const credential = auth.PhoneAuthProvider.credential(
@@ -35,7 +35,7 @@ const OtpVerify = ({navigation, route}: any) => {
       );
       await auth().signInWithCredential(credential);
       console.log('OTP verification successful');
-      setLoading(false);
+      // setLoading(false);
       // Handle successful verification, such as navigating to the next screen
       Alert.alert('Success', 'OTP verification successful');
       navigation.navigate('BOTTOMTAB');

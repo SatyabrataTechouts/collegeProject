@@ -1,3 +1,4 @@
+import Address from "../screens/AdressPage";
 import Login from "../screens/Login";
 import Onbording from "../screens/Onboarding";
 import OrderPage from "../screens/OrderPage";
@@ -28,5 +29,8 @@ export const ROUTES:any={
 	},
 	ORDER:{
 		component:OrderPage
+	},
+	ADDRESS:{
+		component:Address
 	}
 }

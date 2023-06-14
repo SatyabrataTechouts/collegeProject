@@ -2,7 +2,11 @@ import {View, Text, ImageBackground, Modal} from 'react-native';
 import React, {useState} from 'react';
 import CustumInput from '../../components/CustumInput';
 import CText from '../../components/Ctext';
-import {ScrollView, TextInput, TouchableOpacity} from 'react-native-gesture-handler';
+import {
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native-gesture-handler';
 import {StyleSheet} from 'react-native';
 import {theme} from '../../utils/theme';
 
@@ -11,7 +15,7 @@ import DOBPicker from '../../components/DobPicker';
 import CustumButton from '../../components/CustumButton';
 import {firebase} from '@react-native-firebase/auth';
 import OtpVerify from '../OtpVerify';
-import { KeyboardAvoidingView } from 'react-native';
+import {KeyboardAvoidingView} from 'react-native';
 
 const SignUp = () => {
   const [selectedGender, setSelectedGender] = useState(null);
@@ -76,121 +80,127 @@ const SignUp = () => {
     <ImageBackground
       source={require('../../../Assets/loginbackground1.jpg')}
       style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-         <KeyboardAvoidingView >
-            <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={{marginVertical: 23}}>
-        <CText text="Enter your name" style={style.lebleText} />
-       
-        <CustumInput
-          color="#ffff"
-          height={50}
-          width={270}
-          onHandleChange={val => setName(val)}
-        />
-      </View>
-      <View style={{marginVertical: 23}}>
-        <CText text="Enter Mobile number" style={style.lebleText} />
-        <CustumInput
-          color="#ffff"
-          height={50}
-          width={270}
-          onHandleChange={val => setPhoneNumber(`+91${val}`)}
-        />
-      </View>
+      <KeyboardAvoidingView>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={{marginVertical: 23}}>
+            <CText text="Enter your name" style={style.lebleText} />
 
-      <View style={{marginVertical: 23, width: 270}}>
-        <CText text="Select Gander" style={style.lebleText} />
-        <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-          <TouchableOpacity onPress={() => handleGenderSelect('male')}>
-            <Text
-              style={{
-                color: selectedGender === 'male' ? '#fff' : 'black',
-                fontSize: 19,
-              }}>
-              Male
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleGenderSelect('female')}>
-            <Text
-              style={{
-                color: selectedGender === 'female' ? '#fff' : 'black',
-                fontSize: 19,
-              }}>
-              Female
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleGenderSelect('other')}>
-            <Text
-              style={{
-                color: selectedGender === 'other' ? '#fff' : 'black',
-                fontSize: 19,
-              }}>
-              Other
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={{marginVertical: 25, width: 270, height: 90}}>
-        <CText text="Enter Email/gmail" style={style.lebleText} />
-        <CustumInput
-          color="#ffff"
-          height={50}
-          width={270}
-          onHandleChange={val => setEmail(val)}
-        />
-      </View>
-
-      <View style={{alignItems: 'center', marginVertical: 27}}>
-        <CustumButton
-          height={45}
-          width={120}
-          backgroundColor="red"
-          buttonName="sign up"
-          color={theme.colors.primaryTextColor}
-          onPress={signUpWithPhoneNumber}
-        />
-        <CText
-          text="do you have an account?go login"
-          style={{
-            marginVertical: 27,
-            textDecorationLine: 'underline',
-            color: 'blue',
-            fontSize: 12,
-          }}
-        />
-        
-      </View>
-      
-      <Modal
-        visible={modal}
-        transparent
-        animationType="fade"
-        style={{opacity: 0.25}}>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 200,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          }}>
-          <View style={{width: 300, height: 300,backgroundColor:'#fff'}}>
-            <TextInput
-              placeholder="Verification code"
-              value={verificationCode}
-              onChangeText={setVerificationCode}
-            />
-            <CustumButton
-              height={40}
-              width={110}
-              color="black"
-              buttonName="verify"
-              onPress={confirmVerificationCode}
+            <CustumInput
+              color="#ffff"
+              height={50}
+              width={270}
+              onHandleChange={val => setName(val)}
             />
           </View>
-        </View>
-      </Modal>
-      </ScrollView>
+          <View style={{marginVertical: 23}}>
+            <CText text="Enter Mobile number" style={style.lebleText} />
+            <CustumInput
+              color="#ffff"
+              height={50}
+              width={270}
+              onHandleChange={val => setPhoneNumber(`+91${val}`)}
+            />
+          </View>
+
+          <View style={{marginVertical: 23, width: 270}}>
+            <CText text="Select Gander" style={style.lebleText} />
+            <View
+              style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+              <TouchableOpacity onPress={() => handleGenderSelect('male')}>
+                <Text
+                  style={{
+                    color: selectedGender === 'male' ? '#fff' : 'black',
+                    fontSize: 19,
+                  }}>
+                  Male
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleGenderSelect('female')}>
+                <Text
+                  style={{
+                    color: selectedGender === 'female' ? '#fff' : 'black',
+                    fontSize: 19,
+                  }}>
+                  Female
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleGenderSelect('other')}>
+                <Text
+                  style={{
+                    color: selectedGender === 'other' ? '#fff' : 'black',
+                    fontSize: 19,
+                  }}>
+                  Other
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={{marginVertical: 25, width: 270, height: 90}}>
+            <CText text="Enter Email/gmail" style={style.lebleText} />
+            <CustumInput
+              color="#ffff"
+              height={50}
+              width={270}
+              onHandleChange={val => setEmail(val)}
+            />
+          </View>
+
+          <View style={{alignItems: 'center', marginVertical: 27}}>
+            <CustumButton
+              height={45}
+              width={120}
+              backgroundColor="red"
+              buttonName="sign up"
+              color={theme.colors.primaryTextColor}
+              onPress={signUpWithPhoneNumber}
+            />
+            <CText
+              text="do you have an account?go login"
+              style={{
+                marginVertical: 27,
+                textDecorationLine: 'underline',
+                color: 'blue',
+                fontSize: 12,
+              }}
+            />
+          </View>
+
+          <Modal
+            visible={modal}
+            transparent
+            animationType="fade"
+            style={{opacity: 0.25}}>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 200,
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              }}>
+              <View
+                style={{
+                  width: 300,
+                  height: 300,
+                  backgroundColor: '#fff',
+                  alignItems: 'center',
+                }}>
+                <TextInput
+                  placeholder="Verification code"
+                  value={verificationCode}
+                  onChangeText={setVerificationCode}
+                />
+                <CustumButton
+                  height={40}
+                  width={110}
+                  color="black"
+                  buttonName="verify"
+                  onPress={confirmVerificationCode}
+                />
+              </View>
+            </View>
+          </Modal>
+        </ScrollView>
       </KeyboardAvoidingView>
     </ImageBackground>
   );
