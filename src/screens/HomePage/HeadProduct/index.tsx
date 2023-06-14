@@ -89,11 +89,11 @@ const HeadProduct = () => {
             size={50}
             color={theme.colors.iconHillight}
           />
-          <CustumInput
+          {/* <CustumInput
             height={43}
             width={getResponsiveGenWP({p: 56})}
             color="#00000000"
-          />
+          /> */}
           <Image
             source={{
               uri: 'https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-man-6-940x940.png',

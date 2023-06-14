@@ -12,6 +12,7 @@ interface CustumInputProps {
   width: number;
   height: number;
   color: string;
+    
 }
 const CustumInput = ({
   placeHolder,

@@ -20,28 +20,18 @@ import {ReactNativeFirebase} from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
 
 import * as Animatable from 'react-native-animatable';
+import {ImageBackground} from 'react-native';
+import { useAppDispatch } from '../../components/redux/hook';
 
 const thems = theme.colors;
 const Login = () => {
+  // const  dispatch=useAppDispatch();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [confirmation, setConfirmation] = useState();
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   console.log('phoneNumber', phoneNumber);
-  //   if (getApps().length === 0) {
-  //     const firebaseConfig = {
-  //       apiKey: 'AIzaSyCXqdu2nhRE6FGVuprD1glbCJS_Xcvw90k',
-  //       authDomain:
-  //         '498449385469-on8ib26v0lpvj2latsc3arsnib2hs49g.apps.googleusercontent.com',
-  //       projectId: 'foodapp-db4be',
-  //       storageBucket: 'foodapp-db4be.appspot.com',
-  //       messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-  //       appId: '1:498449385469:android:51a87ddac61e7ad4883b94',
-  //       measurementId: 'YOUR_MEASUREMENT_ID', // Optional: if you have enabled Firebase Analytics
-  //     };
-
-  //     const app = initializeApp(firebaseConfig);
-  //   }
+  
   const handleSignIn = async () => {
     setLoading(true);
     try {
@@ -59,7 +49,8 @@ const Login = () => {
   };
 
   return (
-    <View
+    <ImageBackground
+      source={require('../../../Assets/loginbackground1.jpg')}
       style={{
         backgroundColor: thems.profileColor,
         flex: 1,
@@ -69,10 +60,22 @@ const Login = () => {
         <Pressable onPress={() => navigation.navigate('BOTTOMTAB')}>
           <Ionicons
             name="ios-chevron-back-circle-sharp"
-            color={thems.backIcon}
+            color={'#fff'}
             size={30}
+            
           />
         </Pressable>
+      </View>
+      <View style={{right: 0, position: 'absolute', top: 20}}>
+        <Image
+          source={require('../../../Assets/loginbackground-removebg-preview.png')}
+          style={{
+            // height: 300,
+            // width: 240,
+            borderTopLeftRadius: 80,
+            borderBottomLeftRadius: 80,
+          }}
+        />
       </View>
       <View>
         <CText
@@ -84,27 +87,49 @@ const Login = () => {
             fontSize: 17,
           }}
         />
-        <View style={{alignItems: 'center'}}>
+        <View
+          style={{
+            alignItems: 'center',
+            borderWidth: 0.83,
+            borderColor: '#fff',
+            width: 270,
+            alignSelf: 'center',
+            borderRadius: 10,
+          }}>
           <CustumInput
             prefix={true}
             maxChar={10}
             keyboardType={'phone-pad'}
             width={270}
             height={50}
-            color={'#FFFF'}
+            color={theme.colors.signInButton}
             onHandleChange={val => setPhoneNumber(`+91${val}`)}
           />
         </View>
       </View>
       <View style={{alignItems: 'center', marginBottom: 25}}>
         <CustumButton
-          buttonName="Otp Verify"
-          height={60}
+          buttonName="Sign IN"
+          height={50}
           width={150}
-          color={theme.colors.signInButton}
+          color={theme.colors.styleTextColor}
+          backgroundColor={theme.colors.signInButton}
           onPress={handleSignIn}
         />
+        <Pressable onPress={()=>navigation.navigate('SIGNUP')}>
+          <CText
+            text="dont have an account create an account?"
+            style={{
+              textDecorationLine: 'underline',
+              color: 'blue',
+              marginVertical: 23,
+              fontSize: 15,
+              letterSpacing: 0.54,
+            }}
+          />
+        </Pressable>
       </View>
+
       <Modal
         visible={loading}
         transparent={true}
@@ -125,7 +150,7 @@ const Login = () => {
           </Animatable.View>
         </View>
       </Modal>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -135,12 +160,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width:300,
-    height:120
+    width: 300,
+    height: 120,
   },
   carContainer: {
     width: 300,
     height: 50,
-   
   },
 });

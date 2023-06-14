@@ -10,6 +10,7 @@ interface CustumButtonProps {
   width: number;
   color?: string;
   backgroundColor?: string;
+
 }
 const CustumButton = ({
   buttonName,
@@ -28,7 +29,7 @@ const CustumButton = ({
       style={{
         shadowRadius: 3,
         borderRadius: 8,
-        backgroundColor: '#DDDDDD',
+        backgroundColor: backgroundColor?backgroundColor:'#FFFF',
         width: width,
         height: height,
       }}>

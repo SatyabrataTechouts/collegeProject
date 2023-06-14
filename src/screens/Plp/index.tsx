@@ -21,14 +21,15 @@ import CustumButton from '../../components/CustumButton';
 import firebase from '@react-native-firebase/app';
 // import firestore from '@react-native-firebase/firestore';
 
-
-import { firestore } from '../../../App';
-import { db } from '../../components/configuration';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { useAppSelector } from '../../components/redux/hook';
+import {doc, getDoc, setDoc, updateDoc} from 'firebase/firestore';
+import {useAppDispatch, useAppSelector} from '../../components/redux/hook';
+import {
+  addToCart,
+  addToCartAsync,
+  existPrice,
+} from '../../components/redux/slice/cartSlice';
 const Plp = ({route, navigation}: any) => {
- 
-    // console.log('uid===', uid)
+  // console.log('uid===', uid)
   const data = route.params.data;
   const refRBSheet = useRef();
   console.log('data', data);
@@ -141,132 +142,75 @@ const Plp = ({route, navigation}: any) => {
 };
 
 export default Plp;
-const Bottom = (item) => {
-  const uid=useAppSelector(state=>state.AuthData.uid);
-  console.log('hii', uid)
-  const AddToCart=async(item:any)=>{
-    let cartData= [];
-    
-   let data= {
-      id:item.id,
-      name:item.Pname,
-      price:item.Price,
-      image:item.image,
-      qty:1,
-
-   }
-   
-   const docRef =await getDoc(doc(db, "cart", uid)) ;
-      cartData= docRef.data().cartData;
-  
-  
-  console.log('cartData', docRef.data().cartData.length)
-  if(cartData.length==0){
-   
-    cartData.push(data)
-    console.log('====',cartData )
-    try{
-      await  setDoc(doc(db,'cart',uid),{
-        cartData
-      }
-      )
-    
-      }
-     catch(e){
-     console.log('e', e)
-     }
-  }
-  else{
-    const existingItem = cartData.find(food => food.id == data.id);
-   if (existingItem) {
-      
-       cartData=( cartData.map(existingFood =>
-          existingFood.id === item.id
-            ? {...existingFood, qty: existingFood.qty + 1}
-            : existingFood,
-        )
-       )
-    }
-     else {
-     cartData.push(data);
-    }
-   try{
-    await  updateDoc(doc(db,'cart',uid),{
-      cartData
-    }
-    )
-  
-    }
-   catch(e){
-   console.log('e', e)
-   }
-  }
-}
+const Bottom = item => {
+  const uid = useAppSelector(state => state.AuthData.uid);
+  const dispatch = useAppDispatch();
+  console.log('hii', uid);
+ 
   return (
-    <View style={{justifyContent:'space-around',flex:1}}>
+    <View style={{justifyContent: 'space-around', flex: 1}}>
       <CText
         text="Never order food in excess of your body weight "
         style={{
-            fontSize:17,
-            fontWeight:'600',
-            color:'#800020',
-            alignSelf:'center'
+          fontSize: 17,
+          fontWeight: '600',
+          color: '#800020',
+          alignSelf: 'center',
         }}
       />
-      
-      <View style={{alignItems:'center'}}>
-      <View
-            style={{
-              width: getResponsiveGenWP({p: 85}),
-              height: getResponsiveGenHP({p: 18}),
 
-              backgroundColor: theme.colors.profileCard,
-              borderRadius: 12,
-              marginVertical: 17,
+      <View style={{alignItems: 'center'}}>
+        <View
+          style={{
+            width: getResponsiveGenWP({p: 85}),
+            height: getResponsiveGenHP({p: 18}),
+
+            backgroundColor: theme.colors.profileCard,
+            borderRadius: 12,
+            marginVertical: 17,
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
             }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}>
-              <View>
-                <CText
-                  text={item.item.Pname}
-                  style={{
-                    fontSize: 20,
-                    fontWeight: '400',
-                    color: theme.colors.primaryTextColor,
-                    padding: 12,
-                  }}
-                />
-                <CText
-                  text={item.item.catagories}
-                  style={{
-                    fontSize: 15,
-                    fontWeight: '400',
-                    color: theme.colors.secondaryTextColor,
-                    marginLeft: 12,
-                  }}
-                />
-                <View style={{marginLeft: 12}}>
-                  <Ratting />
-                </View>
-               
-              </View>
-              <View style={{}}>
-                <Image
-                  source={{uri:item.item.image}}
-                  style={{
-                    height: '100%',
-                    width: 130,
-                    borderTopRightRadius: 12,
-                    borderBottomRightRadius: 12,
-                  }}
-                />
+            <View>
+              <CText
+                text={item.item.Pname}
+                style={{
+                  fontSize: 20,
+                  fontWeight: '400',
+                  color: theme.colors.primaryTextColor,
+                  padding: 12,
+                }}
+              />
+              <CText
+                text={item.item.catagories}
+                style={{
+                  fontSize: 15,
+                  fontWeight: '400',
+                  color: theme.colors.secondaryTextColor,
+                  marginLeft: 12,
+                }}
+              />
+              <View style={{marginLeft: 12}}>
+                <Ratting />
               </View>
             </View>
+            <View style={{}}>
+              <Image
+                source={{uri: item.item.image}}
+                style={{
+                  height: '100%',
+                  width: 130,
+                  borderTopRightRadius: 12,
+                  borderBottomRightRadius: 12,
+                }}
+              />
+            </View>
           </View>
+        </View>
       </View>
       <View
         style={{
@@ -274,8 +218,16 @@ const Bottom = (item) => {
           justifyContent: 'space-between',
           padding: 15,
         }}>
-        <CustumButton buttonName="Add to Cart" height={46} width={120} color='green' onPress={()=>AddToCart(item.item)}/>
-        <CustumButton buttonName="Cancel" height={46} width={120} color='red' />
+        <CustumButton
+          buttonName="Add to Cart"
+          height={46}
+          width={120}
+          color="green"
+          onPress={() =>
+            dispatch(addToCartAsync(item.item, uid, item.item.Price),existPrice(item.item.Price))
+          }
+        />
+        <CustumButton buttonName="Cancel" height={46} width={120} color="red" />
       </View>
     </View>
   );

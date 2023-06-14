@@ -1,7 +1,10 @@
 import Login from "../screens/Login";
 import Onbording from "../screens/Onboarding";
+import OrderPage from "../screens/OrderPage";
+
 import OtpVerify from "../screens/OtpVerify";
 import Plp from "../screens/Plp";
+import SignUp from "../screens/SignUP";
 import BottomNavigation from "./BottomNavigation";
 
 export const ROUTES:any={
@@ -19,5 +22,11 @@ export const ROUTES:any={
 	},
 	PLP:{
 		component:Plp
+	},
+	SIGNUP:{
+		component:SignUp
+	},
+	ORDER:{
+		component:OrderPage
 	}
 }

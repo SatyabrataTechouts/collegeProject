@@ -15,6 +15,7 @@ const palette = {
   Cultured:'##F7F7F7',
   lightYellow:'#F7DB91',
   lightOrange:'#F9AA87',
+ redCandy:'#ff0800'
 
 };
 const theme = createTheme({
@@ -28,7 +29,7 @@ const theme = createTheme({
     iconHillight: palette.carrot,
     profileColor: palette.WebSafeOrange,
     backIcon: palette.Cultured,
-    signInButton: palette.Azure,
+    signInButton: palette.redCandy,
     profileMainBg: palette.indgoWhite,
     profileNav: palette.white,
     profileCard: palette.white,

@@ -19,6 +19,8 @@ import ImageCropPicker from 'react-native-image-crop-picker';
 import {check, PERMISSIONS, request} from 'react-native-permissions';
 import {StackActions, useNavigation} from '@react-navigation/native';
 import BoxShadow from '../../components/BoxShadow';
+import Login from '../Login';
+import Navigation from '../../navigations';
 
 const themes = theme.colors;
 const Profile = () => {
@@ -97,7 +99,7 @@ const Profile = () => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: themes.profileMainBg}}>
+  isLogged?  <View style={{flex: 1, backgroundColor: themes.profileMainBg}}>
       <Header />
       <BoxShadow>
       <View style={{marginTop: 40}}>
@@ -125,6 +127,8 @@ const Profile = () => {
               onPress={() => {
                navigation.canGoBack();
                 navigation.navigate('LOGIN');
+                dispatch(LogOut())
+                navigation.reset({index:0,history:()=>Navigation},)
               }}
             />
           </View>
@@ -160,7 +164,8 @@ const Profile = () => {
       </View>
       </BoxShadow>
     </View>
-  );
+    :<Login/>
+  )
 };
 
 export default Profile;
