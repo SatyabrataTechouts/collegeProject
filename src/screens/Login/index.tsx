@@ -27,24 +27,24 @@ const thems = theme.colors;
 const Login = () => {
   // const  dispatch=useAppDispatch();
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [confirmation, setConfirmation] = useState();
+  // const [confirmation, setConfirmation] = useState();
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
-  console.log('phoneNumber', phoneNumber);
   
+ 
   const handleSignIn = async () => {
     setLoading(true);
     try {
-      const confirmationResult = await auth().signInWithPhoneNumber(
-        phoneNumber,
-      );
-      setConfirmation(confirmationResult);
-
-      Alert.alert('OTP Sent!', 'Please check your phone for the OTP.');
-      navigation.navigate('OTPVERIFY', {phoneNumber: phoneNumber});
-      setLoading(false);
+      const confirmation = await auth().signInWithPhoneNumber(phoneNumber); // Replace with the user's phone number
+      // Save the confirmation object for later use
+  
+      // Navigate to the OTP verification screen
+      // Pass the confirmation object as a parameter to the OTP verification screen
+      console.log('confo', confirmation);
+      navigation.navigate('OTPVERIFY', {confirmation: confirmation });
     } catch (error) {
-      console.log('Sign-in error:', error);
+      console.log('Mobile number sign-in error:', error);
+      // Handle sign-in error, such as displaying an error message
     }
   };
 

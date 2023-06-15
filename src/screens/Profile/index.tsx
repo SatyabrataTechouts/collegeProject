@@ -21,23 +21,38 @@ import {StackActions, useNavigation} from '@react-navigation/native';
 import BoxShadow from '../../components/BoxShadow';
 import Login from '../Login';
 import Navigation from '../../navigations';
+import firestore from '@react-native-firebase/firestore';
+
 
 const themes = theme.colors;
 const Profile = () => {
   const [profilePicture, setProfilePicture] = useState(null);
+  const [data,setData]=useState([]);
   const isLogged = useAppSelector(state => state.AuthData.isLogged);
+  const uid = useAppSelector(state => state.AuthData.uid);
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   useEffect(() => {
     requestPermission();
+    getUserData();
   }, []);
-
+ const getUserData=async()=>{
+  const userSnapshot = await firestore().collection('userAccount').doc(uid).get();
+  if (userSnapshot.exists) {
+    const userData = userSnapshot.data();
+    console.log('userdata', userData)
+    setData(userData.userAccount);
+  } else {
+    console.log('Document does not exist');
+  }
+  
+ }
   // const resetAction = StackActions.reset({
   //   key:null,
   //   index: 0, // Reset the stack to index 0 (first screen)
   //   routes: [{name: 'profile'}], // Replace all routes with the Home screen
   // });
-
+ console.log('data', data[0])
   const requestPermission = async () => {
     try {
       if (Platform.OS == 'android') {
@@ -115,10 +130,10 @@ const Profile = () => {
             borderRadius:12
           }}>
           <View style={{marginTop: 120}}></View>
-          <ProfileData data={'User Name'} value={'Satyabrata'} />
-          <ProfileData data={'Phone Number'} value={'+917873537019'} />
-          <ProfileData data={'Gander'} value={'Male'} />
-          <ProfileData data={'Date of Birth'} value={'09-04-2000'} />
+          <ProfileData data={'User Name'} value={data[0]?.name} />
+          <ProfileData data={'Phone Number'} value={data[0]?.phoneNumber} />
+          <ProfileData data={'Gander'} value={data[0]?.selectedGender} />
+          <ProfileData data={'Gmail'} value={data[0]?.email} />
           <View style={{alignItems: 'center'}}>
             <CustumButton
               buttonName="Log Out"

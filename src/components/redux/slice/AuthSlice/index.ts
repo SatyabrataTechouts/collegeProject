@@ -3,10 +3,12 @@ import auth from '@react-native-firebase/auth';
 export interface isLoggedState{
     isLogged:boolean;
     uid:string;
+    orderPaGe:boolean;
 }
  const initialState:isLoggedState={
     isLogged:false,
-    uid:''
+    uid:'',
+    orderPaGe:true,
  }
 const AuthSlice=createSlice({
     name:'AuthData',
@@ -39,8 +41,11 @@ const AuthSlice=createSlice({
             console.log(error);
             // Handle any errors that occur during logout
           }
+       },
+       isOrderPage:()=>{
+        initialState.orderPaGe=!initialState.orderPaGe;
        }
     }
 })
-export  const {checkLogin,LogOut}=AuthSlice.actions
+export  const {checkLogin,LogOut,isOrderPage}=AuthSlice.actions
 export default AuthSlice.reducer;

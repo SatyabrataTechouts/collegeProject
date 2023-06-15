@@ -6,14 +6,17 @@ import CustumButton from '../../components/CustumButton';
 import {firebase} from '@react-native-firebase/auth';
 import auth from '@react-native-firebase/auth';
 import * as Animatable from 'react-native-animatable';
-const OtpVerify = ({navigation, route}: any) => {
-  const {phoneNumber} = route.params;
+import { useNavigation, useRoute } from '@react-navigation/native';
+const OtpVerify = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const confirmation = route.params?.confirmation;
   const [loading,setLoading]=useState(false);
   const [otpDigits, setOtpDigits] = useState('');
-  console.log('otpDigits', phoneNumber);
+  // console.log('otpDigits', phoneNumber);
   const refs = Array.from({length: 6}, () => useRef(null));
   const digitsArray = otpDigits.split('');
-  // console.log('confirmation',confirmation )
+  console.log('confirmation',confirmation )
   const handleOtpInputChange = (text, index) => {
     const newDigitsArray = otpDigits.split('');
     newDigitsArray[index] = text;
@@ -28,21 +31,20 @@ const OtpVerify = ({navigation, route}: any) => {
   const handleOTPVerification = async () => {
     // setLoading(true);
     try {
-      const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
       const credential = auth.PhoneAuthProvider.credential(
         confirmation.verificationId,
-        otpDigits,
+        otpDigits
+         // Replace with the entered OTP code
       );
+  
       await auth().signInWithCredential(credential);
+  
       console.log('OTP verification successful');
-      // setLoading(false);
-      // Handle successful verification, such as navigating to the next screen
-      Alert.alert('Success', 'OTP verification successful');
       navigation.navigate('BOTTOMTAB');
+      // Handle successful verification, such as navigating to the next screen
     } catch (error) {
       console.log('OTP verification error:', error);
       // Handle verification error, such as displaying an error message
-      Alert.alert('Error', 'OTP verification failed');
     }
   };
   return (

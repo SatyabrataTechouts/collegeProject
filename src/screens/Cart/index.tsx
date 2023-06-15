@@ -22,17 +22,18 @@ import CustumButton from '../../components/CustumButton';
 import Ratting from '../../components/Ratting';
 import CustumInput from '../../components/CustumInput';
 import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 var nav;
 const Cart = () => {
   const [data, setData] = useState();
   const uid = useAppSelector(state => state.AuthData.uid);
   const price = useAppSelector(state => state.cart.price);
-  nav=useNavigation();
+  nav = useNavigation();
   const dispatch = useAppDispatch();
-  useEffect(() => {
+ 
+  useEffect(()=>{
     getData();
-  });
+  })
 
   const getData = async () => {
     const docRef = await getDoc(doc(db, 'cart', uid));
@@ -111,7 +112,7 @@ const Cart = () => {
                   buttonName="Order"
                   height={30}
                   width={80}
-                  onPress={()=>orderFood(item)}
+                  onPress={() => orderFood(item)}
                   color="black"
                 />
               </View>
@@ -143,7 +144,7 @@ const Cart = () => {
     );
   };
   return (
-    data && (
+    data ? (
       <View style={{flex: 1, backgroundColor: '#F8F4F0'}}>
         <CText
           text="My Cart"
@@ -191,7 +192,19 @@ const Cart = () => {
           </View>
         </ScrollView>
       </View>
-    )
+    ): <View style={{flex: 1, justifyContent: 'center'}}>
+    <Pressable onPress={()=>{ nav.navigate("home")}}>
+    <CText
+      text="Cart is Empty Enter to Continue shopping"
+      style={{
+        fontSize: 18,
+        alignSelf: 'center',
+        color: 'green',
+         textDecorationLine:'underline'
+      }}
+    />
+    </Pressable>
+  </View>
   );
 };
 
@@ -204,9 +217,9 @@ const BottomSheet = item => {
   const uid = useAppSelector(state => state.AuthData.uid);
   const dispatch = useAppDispatch();
   console.log('hii', uid);
-  const handleOrder = (item) => {
-    if (oderNumber !=null) {
-      nav?.navigate('ORDER', {data:item});
+  const handleOrder = item => {
+    if (oderNumber != null) {
+      nav?.navigate('ORDER', {data: item});
     }
   };
   return (
@@ -272,7 +285,7 @@ const BottomSheet = item => {
               width={290}
               height={40}
               backgroundColor={theme.colors.signInButton}
-              onPress={()=>handleOrder(item)}
+              onPress={() => handleOrder(item)}
               color="#fff"
             />
           </View>

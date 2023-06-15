@@ -9,8 +9,10 @@ import {theme} from '../../utils/theme';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Delevery from '../../screens/Delevery';
 import Cart from '../../screens/Cart';
+import { useAppSelector } from '../../components/redux/hook';
 const BottomNavigation = () => {
   const BottomTab = createBottomTabNavigator();
+  const log=useAppSelector(state=>state.AuthData.isLogged);
   return (
     <BottomTab.Navigator
       screenOptions={{
@@ -50,6 +52,7 @@ const BottomNavigation = () => {
         name="DELEVERY"
         component={Delevery}
         options={{
+         
           tabBarIcon: ({focused}) => {
             return (
               <FontAwesome
@@ -80,6 +83,10 @@ const BottomNavigation = () => {
         name="profile"
         component={Profile}
         options={{
+          tabBarStyle:{
+            backgroundColor:(!log)&&theme.colors.signInButton,
+            height: 70,
+           },
           tabBarIcon: ({focused}) => {
             return (
               <FontAwesome
@@ -89,7 +96,9 @@ const BottomNavigation = () => {
               />
             );
           },
+        
         }}
+        
       />
     </BottomTab.Navigator>
   );

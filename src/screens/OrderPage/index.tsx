@@ -16,15 +16,20 @@ import {
   removeFromCart,
   removeFromCartAsync,
 } from '../../components/redux/slice/cartSlice';
-const OrderPage = ({route, navigation}: any) => {
+import { useFocusEffect } from '@react-navigation/native';
+ const OrderPage = ({route, navigation}: any) => {
   const uid = useAppSelector(state => state.AuthData.uid);
+  const isOrder = useAppSelector(state => state.AuthData.orderPaGe);
   const dispatch = useAppDispatch();
   const [address, setAddress] = useState();
   const [selected, setSelected] = useState({addressId:0});
   const data = route.params.data.item;
-  useEffect(() => {
-    userAddress();
-  }, []);
+  console.log('isOrder', isOrder)
+  useFocusEffect(
+    React.useCallback(() => {
+      userAddress();
+    }, [])
+  );
   const userAddress = async () => {
     const user = await firestore().collection('user').doc(uid).get();
     setAddress(user._data.address);
@@ -123,7 +128,7 @@ const OrderPage = ({route, navigation}: any) => {
                 source={{uri: data.image}}
                 style={{height: getResponsiveGenHP({p: 15}), width: 120}}
               />
-              <View style={{marginHorizontal: 12}}>
+              <View style={{marginHorizontal: 12,width:120}}>
                 <CText text={`Name:${data.name}`} style={style.primeryStyle} />
                 <CText
                   text={`Unit Price:${data.unitPrice}`}
@@ -180,7 +185,7 @@ const OrderPage = ({route, navigation}: any) => {
               text="Change Address"
               style={[
                 style.secondaryStyle,
-                {color: '#72bcd4', textDecorationLine: 'underline'},
+                {color: '#72bcd4', textDecorationLine: 'underline',marginRight:15},
               ]}
             />
           </Pressable>
@@ -211,5 +216,6 @@ const style = StyleSheet.create({
     color: theme.colors.secondaryTextColor,
     fontSize: 15,
     fontWeight: '400',
+
   },
 });

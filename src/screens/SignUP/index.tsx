@@ -10,13 +10,16 @@ import {
 import {StyleSheet} from 'react-native';
 import {theme} from '../../utils/theme';
 
-import {Button} from 'react-native';
-import DOBPicker from '../../components/DobPicker';
+
 import CustumButton from '../../components/CustumButton';
 import {firebase} from '@react-native-firebase/auth';
-import OtpVerify from '../OtpVerify';
+import firestore from '@react-native-firebase/firestore';
 import {KeyboardAvoidingView} from 'react-native';
-
+import auth from '@react-native-firebase/auth'
+import { db } from '../../components/configuration';
+import { doc, setDoc, updateDoc } from 'firebase/firestore';
+import { useAppDispatch, useAppSelector } from '../../components/redux/hook';
+import { checkLogin } from '../../components/redux/slice/AuthSlice';
 const SignUp = () => {
   const [selectedGender, setSelectedGender] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -25,8 +28,10 @@ const SignUp = () => {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
+  // const userId=useAppSelector(state=>state.AuthData.uid);
   const [verificationCode, setVerificationCode] = useState('');
-
+    const uId=useAppSelector(state=>state.AuthData.uid);
+    const dispatch=useAppDispatch();
   const [verificationId, setVerificationId] = useState('');
   const signUpWithPhoneNumber = async () => {
     try {
@@ -45,15 +50,40 @@ const SignUp = () => {
   };
   const confirmVerificationCode = async () => {
     try {
-      const credential = firebase.auth.PhoneAuthProvider.credential(
+      const credential = auth.PhoneAuthProvider.credential(
         verificationId,
         verificationCode,
       );
+      await auth().signInWithCredential(credential);
+      dispatch(checkLogin());
 
-      const randomPassword = Math.random().toString(36).substring(2, 10); // Generate a random password
-      const currentUser = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, randomPassword);
+      console.log(' verifyed' )
+      const user = await firestore().collection('userAccount').doc(uId).get();
+      let tempDart = [];
+      console.log('user', user._data);
+
+      if( user._data!=null){
+      tempDart=user._data.userAccount;
+      tempDart.push({phoneNumber,name,email,selectedGender});
+     
+         await updateDoc(doc(db, 'userAccount', uId), {
+          userAccount: tempDart,
+          }).catch((e)=>console.log('first', e))
+          ;
+       
+        }
+        else{
+          console.log('Hello')
+  
+           tempDart.push({phoneNumber,name,email,selectedGender});
+          await setDoc(doc(db, 'userAccount', uId), {
+            userAccount: tempDart,
+          }).catch((e)=>console.log('first', e),)
+        }
+      // const randomPassword = Math.random().toString(36).substring(2, 10); // Generate a random password
+      // const currentUser = await firebase
+      //   .auth()
+      //   .createUserWithEmailAndPassword(email, randomPassword);
       //   await firebase.auth().signInWithCredential(credential);
 
       // User is signed in, you can proceed with additional steps or navigate to the next screen
@@ -73,6 +103,7 @@ const SignUp = () => {
       }
     } catch (error) {
       console.log('Verification code confirmation error:', error);
+      setModal(false);
     }
   };
 
@@ -181,7 +212,7 @@ const SignUp = () => {
               <View
                 style={{
                   width: 300,
-                  height: 300,
+                  height: 150,
                   backgroundColor: '#fff',
                   alignItems: 'center',
                 }}>
@@ -189,6 +220,8 @@ const SignUp = () => {
                   placeholder="Verification code"
                   value={verificationCode}
                   onChangeText={setVerificationCode}
+                  inputMode='numeric'
+                  maxLength={6}
                 />
                 <CustumButton
                   height={40}

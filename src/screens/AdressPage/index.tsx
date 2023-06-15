@@ -8,12 +8,13 @@ import {
 import React, {useId, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import uuid from 'react-native-uuid';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useAppSelector} from '../../components/redux/hook';
+import {useAppDispatch, useAppSelector} from '../../components/redux/hook';
 import {doc, setDoc, updateDoc} from 'firebase/firestore';
 import {db} from '../../components/configuration';
+import { isOrderPage } from '../../components/redux/slice/AuthSlice';
 const Address = ({navigation}) => {
   const [street, setStreet] = useState('');
+  const dispatch=useAppDispatch();
   const [city, setCity] = useState('');
   const [pincode, setPincode] = useState('');
   const [mobile, setMobile] = useState('');
@@ -24,17 +25,24 @@ const Address = ({navigation}) => {
     const user = await firestore().collection('user').doc(userId).get();
     let tempDart = [];
     console.log('user', user._data);
+    if( user._data!=null){
     tempDart=user._data.address;
     tempDart.push({street, city, pincode, mobile, addressId});
-    user._data
-      ? await updateDoc(doc(db, 'user', userId), {
+   
+       await updateDoc(doc(db, 'user', userId), {
           address: tempDart,
-        }).then(() => navigation.goBack())
-      : await setDoc(doc(db, 'user', userId), {
+        }).then(() => {navigation.goBack(),dispatch(isOrderPage())}).catch((e)=>console.log('first', e))
+        ;
+     
+      }
+      else{
+        console.log('Hello')
+
+         tempDart.push({street, city, pincode, mobile, addressId});
+        await setDoc(doc(db, 'user', userId), {
           address: tempDart,
-        })
-          .then(() => navigation.goBack())
-          .catch(e => console.log('e', e));
+        }).then(() => {navigation.goBack(),dispatch(isOrderPage())}).catch((e)=>console.log('first', e),)
+      }
   };
   return (
     <View style={styles.container}>

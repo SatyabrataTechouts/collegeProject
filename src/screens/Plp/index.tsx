@@ -28,18 +28,31 @@ import {
   addToCartAsync,
   existPrice,
 } from '../../components/redux/slice/cartSlice';
+import Navigation from '../../navigations';
+var nav;
 const Plp = ({route, navigation}: any) => {
   // console.log('uid===', uid)
   const data = route.params.data;
   const refRBSheet = useRef();
   console.log('data', data);
   const cardHeight = 347;
+  nav = navigation;
+
+  const closeBottomSheet = () => {
+    magicSheet.hide();
+  };
+
   const handlePickUser = useCallback(
     (item: any) => {
-      magicSheet.show(() => <Bottom item={item} />, {
-        snapPoints: [cardHeight, '45%'],
-        backgroundStyle: {backgroundColor: theme.colors.iconHillight},
-      });
+      magicSheet.show(
+        () => <Bottom item={item} closeBottomSheet={closeBottomSheet} />,
+        {
+          snapPoints: [cardHeight, '45%'],
+          backgroundStyle: {backgroundColor: theme.colors.iconHillight},
+
+          onDismiss: closeBottomSheet,
+        },
+      );
     },
 
     [],
@@ -142,11 +155,20 @@ const Plp = ({route, navigation}: any) => {
 };
 
 export default Plp;
-const Bottom = item => {
+const Bottom = ({item, closeBottomSheet}) => {
   const uid = useAppSelector(state => state.AuthData.uid);
   const dispatch = useAppDispatch();
   console.log('hii', uid);
- 
+  console.log('item', closeBottomSheet());
+  const addToCard = item => {
+    if (uid) {
+      dispatch(addToCartAsync(item, uid, item.Price), existPrice(item.Price));
+      closeBottomSheet();
+    } else {
+      closeBottomSheet();
+      nav.navigate('LOGIN');
+    }
+  };
   return (
     <View style={{justifyContent: 'space-around', flex: 1}}>
       <CText
@@ -177,7 +199,7 @@ const Bottom = item => {
             }}>
             <View>
               <CText
-                text={item.item.Pname}
+                text={item.Pname}
                 style={{
                   fontSize: 20,
                   fontWeight: '400',
@@ -186,7 +208,7 @@ const Bottom = item => {
                 }}
               />
               <CText
-                text={item.item.catagories}
+                text={item.catagories}
                 style={{
                   fontSize: 15,
                   fontWeight: '400',
@@ -200,7 +222,7 @@ const Bottom = item => {
             </View>
             <View style={{}}>
               <Image
-                source={{uri: item.item.image}}
+                source={{uri: item.image}}
                 style={{
                   height: '100%',
                   width: 130,
@@ -223,11 +245,15 @@ const Bottom = item => {
           height={46}
           width={120}
           color="green"
-          onPress={() =>
-            dispatch(addToCartAsync(item.item, uid, item.item.Price),existPrice(item.item.Price))
-          }
+          onPress={() => addToCard(item)}
         />
-        <CustumButton buttonName="Cancel" height={46} width={120} color="red" />
+        <CustumButton
+          buttonName="Cancel"
+          height={46}
+          width={120}
+          color="red"
+          onPress={()=>closeBottomSheet()}
+        />
       </View>
     </View>
   );
