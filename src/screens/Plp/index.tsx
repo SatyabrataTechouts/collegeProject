@@ -63,7 +63,7 @@ const Plp = ({route, navigation}: any) => {
     return (
       <View style={{alignItems: 'center'}}>
         <BoxShadow>
-          <View
+          <Pressable
             style={{
               width: getResponsiveGenWP({p: 85}),
               height: getResponsiveGenHP({p: 18}),
@@ -71,7 +71,9 @@ const Plp = ({route, navigation}: any) => {
               backgroundColor: theme.colors.profileCard,
               borderRadius: 12,
               marginVertical: 17,
-            }}>
+            }}
+            onPress={()=>nav.navigate('PDP',{item})}
+            >
             <View
               style={{
                 flexDirection: 'row',
@@ -121,7 +123,7 @@ const Plp = ({route, navigation}: any) => {
                 />
               </View>
             </View>
-          </View>
+          </Pressable>
         </BoxShadow>
       </View>
     );

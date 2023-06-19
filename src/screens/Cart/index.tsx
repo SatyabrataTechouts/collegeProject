@@ -1,4 +1,12 @@
-import {View, Text, Image, Pressable, KeyboardAvoidingView} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  Pressable,
+  KeyboardAvoidingView,
+  Modal,
+  ActivityIndicator,
+} from 'react-native';
 import React, {useEffect, useState, useCallback} from 'react';
 import CText from '../../components/Ctext';
 import {theme} from '../../utils/theme';
@@ -26,18 +34,22 @@ import {useFocusEffect, useNavigation} from '@react-navigation/native';
 var nav;
 const Cart = () => {
   const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
   const uid = useAppSelector(state => state.AuthData.uid);
   const price = useAppSelector(state => state.cart.price);
   nav = useNavigation();
   const dispatch = useAppDispatch();
- 
-  useEffect(()=>{
-    getData();
-  })
 
+  useEffect(() => {
+    getData();
+  });
+   setTimeout(() => {
+    setLoading(false);
+   }, 3000);
   const getData = async () => {
     const docRef = await getDoc(doc(db, 'cart', uid));
     setData(docRef.data().cartData);
+    setLoading(false);
   };
   const orderFood = useCallback(
     (item: any) => {
@@ -144,67 +156,71 @@ const Cart = () => {
     );
   };
   return (
-    data ? (
-      <View style={{flex: 1, backgroundColor: '#F8F4F0'}}>
+    <View style={{flex: 1, backgroundColor: '#F8F4F0'}}>
+      <CText
+        text="My Cart"
+        style={{
+          color: theme.colors.primaryTextColor,
+          fontWeight: '700',
+          fontSize: 22,
+          letterSpacing: 0.1,
+          marginVertical: 25,
+          marginHorizontal: 16,
+        }}
+      />
+      <ScrollView>
+        <FlatList data={data} renderItem={renderData} key={item => item.id} />
         <CText
-          text="My Cart"
+          text="Have a promo code?"
           style={{
+            fontSize: 16,
             color: theme.colors.primaryTextColor,
             fontWeight: '700',
-            fontSize: 22,
-            letterSpacing: 0.1,
-            marginVertical: 25,
-            marginHorizontal: 16,
+            marginHorizontal: 18,
+            marginVertical: 9,
+            letterSpacing: 0.3,
           }}
         />
-        <ScrollView>
-          <FlatList data={data} renderItem={renderData} key={item => item.id} />
-          <CText
-            text="Have a promo code?"
-            style={{
-              fontSize: 16,
-              color: theme.colors.primaryTextColor,
-              fontWeight: '700',
-              marginHorizontal: 18,
-              marginVertical: 9,
-              letterSpacing: 0.3,
-            }}
-          />
-          <View style={{padding: 8}}>
-            <BoxShadow>
-              <View
-                style={{
-                  width: getResponsiveGenHP({p: 39}),
-                  height: getResponsiveGenHP({p: 6}),
-                  alignSelf: 'center',
-                  borderRadius: 22,
-                  backgroundColor: '#FFFFFF',
-                  padding: 12,
-                }}>
-                <View>
-                  <CText
-                    text="DISCOUNT"
-                    style={{color: '#D5A19B', fontSize: 15, fontWeight: '700'}}
-                  />
-                </View>
+        <View style={{padding: 8}}>
+          <BoxShadow>
+            <View
+              style={{
+                width: getResponsiveGenHP({p: 39}),
+                height: getResponsiveGenHP({p: 6}),
+                alignSelf: 'center',
+                borderRadius: 22,
+                backgroundColor: '#FFFFFF',
+                padding: 12,
+              }}>
+              <View>
+                <CText
+                  text="DISCOUNT"
+                  style={{color: '#D5A19B', fontSize: 15, fontWeight: '700'}}
+                />
               </View>
-            </BoxShadow>
+            </View>
+          </BoxShadow>
+        </View>
+      </ScrollView>
+      <Modal
+        visible={loading}
+        transparent={true}
+        animationType="fade"
+        style={{opacity: 0}}>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <View
+            style={{
+              height: 40,
+              width: 60,
+              backgroundColor: theme.colors.signInButton,
+              justifyContent: 'center',
+              borderRadius: 6,
+            }}>
+            <ActivityIndicator color={'#ffff'} size={25} />
           </View>
-        </ScrollView>
-      </View>
-    ): <View style={{flex: 1, justifyContent: 'center'}}>
-    <Pressable onPress={()=>{ nav.navigate("home")}}>
-    <CText
-      text="Cart is Empty Enter to Continue shopping"
-      style={{
-        fontSize: 18,
-        alignSelf: 'center',
-        color: 'green',
-         textDecorationLine:'underline'
-      }}
-    />
-    </Pressable>
-  </View>
+        </View>
+      </Modal>
+    </View>
   );
 };
 
@@ -219,7 +235,7 @@ const BottomSheet = item => {
   console.log('hii', uid);
   const handleOrder = item => {
     if (oderNumber != null) {
-      nav?.navigate('ORDER', {data: item});
+      nav?.navigate('ORDER', {item: item.item});
     }
   };
   return (

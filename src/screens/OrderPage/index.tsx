@@ -23,8 +23,8 @@ import { useFocusEffect } from '@react-navigation/native';
   const dispatch = useAppDispatch();
   const [address, setAddress] = useState();
   const [selected, setSelected] = useState({addressId:0});
-  const data = route.params.data.item;
-  console.log('isOrder', isOrder)
+  const data = route.params.item;
+  console.log('isOrder', data)
   useFocusEffect(
     React.useCallback(() => {
       userAddress();

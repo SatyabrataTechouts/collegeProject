@@ -1,4 +1,11 @@
-import {View, Text, StyleSheet,Pressable} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  Modal,
+  ActivityIndicator,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import CText from '../../components/Ctext';
 import firestore from '@react-native-firebase/firestore';
@@ -8,29 +15,34 @@ import {getResponsiveGenHP, getResponsiveGenWP} from '../../utils';
 import {Image} from 'react-native-animatable';
 import {theme} from '../../utils/theme';
 import {ScrollView} from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import Navigation from '../../navigations';
 
 const Delevery = () => {
   const userId = useAppSelector(state => state.AuthData.uid);
   const [data, setData] = useState();
-  const navigation=useNavigation();
+  const [loading, setLoading] = useState(true);
+  const navigation = useNavigation();
   useEffect(() => {
     recoveryData();
-  }, []);
+  });
+  setTimeout(() => {
+    setLoading(false);
+   }, 3000);
   const recoveryData = async () => {
     const user = await firestore().collection('order').doc(userId).get();
     setData(user._data.orderdata);
+    setLoading(false);
   };
   // console.log('data====', data.id);
-  return data ? (
+  return (
     <View>
       <CText
         text="Order History"
         style={{fontSize: 19, marginHorizontal: 16, marginVertical: 18}}
       />
       <ScrollView>
-        {data.map(data => {
+        {data?.map(data => {
           return (
             <BoxShadow>
               <View
@@ -48,7 +60,7 @@ const Delevery = () => {
                   source={{uri: data.image}}
                   style={{height: getResponsiveGenHP({p: 15}), width: 120}}
                 />
-                <View style={{marginHorizontal: 12,width:120}}>
+                <View style={{marginHorizontal: 12, width: 120}}>
                   <CText
                     text={`Name:${data.name}`}
                     style={style.primeryStyle}
@@ -74,20 +86,24 @@ const Delevery = () => {
           );
         })}
       </ScrollView>
-    </View>
-  ) : (
-    <View style={{flex: 1, justifyContent: 'center'}}>
-      <Pressable onPress={()=>{ navigation.navigate("home")}}>
-      <CText
-        text="Order is Empty please Order"
-        style={{
-          fontSize: 18,
-          alignSelf: 'center',
-          color: 'blue',
-           textDecorationLine:'underline'
-        }}
-      />
-      </Pressable>
+      <Modal
+        visible={loading}
+        transparent={true}
+        animationType="fade"
+        style={{opacity: 0}}>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <View
+            style={{
+              height: 40,
+              width: 60,
+              backgroundColor: theme.colors.signInButton,
+              justifyContent: 'center',
+              borderRadius: 6,
+            }}>
+            <ActivityIndicator color={'#ffff'} size={25} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };

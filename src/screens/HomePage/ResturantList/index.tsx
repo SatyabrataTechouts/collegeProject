@@ -60,7 +60,7 @@ const RestrurantList = () => {
                   <Ratting />
                 </View>
                 <View style={{padding:9}}>
-                  <NeuButton buttonName="ADD" height={30} width={60} />
+                  {/* <NeuButton buttonName="ADD" height={30} width={60} /> */}
                 </View>
               </View>
               <View style={{paddingHorizontal: 23}}>

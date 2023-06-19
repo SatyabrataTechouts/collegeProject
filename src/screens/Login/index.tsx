@@ -14,14 +14,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import CustumInput from '../../components/CustumInput';
 import CustumButton from '../../components/CustumButton';
-
+import firestore from '@react-native-firebase/firestore';
 import {getApps, initializeApp} from 'firebase/app';
 import {ReactNativeFirebase} from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
 
 import * as Animatable from 'react-native-animatable';
 import {ImageBackground} from 'react-native';
-import { useAppDispatch } from '../../components/redux/hook';
+import { useAppDispatch, useAppSelector } from '../../components/redux/hook';
 
 const thems = theme.colors;
 const Login = () => {
@@ -30,7 +30,7 @@ const Login = () => {
   // const [confirmation, setConfirmation] = useState();
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
-  
+  const uid=useAppSelector(state=>state.AuthData.uid);
  
   const handleSignIn = async () => {
     setLoading(true);
@@ -41,7 +41,11 @@ const Login = () => {
       // Navigate to the OTP verification screen
       // Pass the confirmation object as a parameter to the OTP verification screen
       console.log('confo', confirmation);
+      Alert.alert(uid);
+      const user = await firestore().collection('userAccount').doc(uid).get();
+      console.log('==userssa', user);
       navigation.navigate('OTPVERIFY', {confirmation: confirmation });
+      setLoading(false);
     } catch (error) {
       console.log('Mobile number sign-in error:', error);
       // Handle sign-in error, such as displaying an error message
@@ -145,7 +149,7 @@ const Login = () => {
               source={{
                 uri: 'https://www.pngarts.com/files/7/Food-Delivery-Service-PNG-Transparent-Image.png',
               }}
-              style={{height: 180, width: 190}}
+              style={{height: 90, width: 90}}
             />
           </Animatable.View>
         </View>

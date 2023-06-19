@@ -28,6 +28,7 @@ const themes = theme.colors;
 const Profile = () => {
   const [profilePicture, setProfilePicture] = useState(null);
   const [data,setData]=useState([]);
+  const [isLog,setIsLog]=useState(false);
   const isLogged = useAppSelector(state => state.AuthData.isLogged);
   const uid = useAppSelector(state => state.AuthData.uid);
   const dispatch = useAppDispatch();
@@ -35,6 +36,7 @@ const Profile = () => {
   useEffect(() => {
     requestPermission();
     getUserData();
+    setIsLog(isLogged);
   }, []);
  const getUserData=async()=>{
   const userSnapshot = await firestore().collection('userAccount').doc(uid).get();

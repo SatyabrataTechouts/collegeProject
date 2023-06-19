@@ -12,7 +12,7 @@ interface CustumInputProps {
   width: number;
   height: number;
   color: string;
-    
+  showError?:any;
 }
 const CustumInput = ({
   placeHolder,
@@ -23,6 +23,7 @@ const CustumInput = ({
   width,
   height,
   color,
+  showError
 }: CustumInputProps) => {
   return (
     <Neomorph
@@ -62,6 +63,7 @@ const CustumInput = ({
           maxLength={maxChar}
           keyboardType={keyboardType}
         />
+        
       </View>
     </Neomorph>
   );

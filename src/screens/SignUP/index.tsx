@@ -1,4 +1,4 @@
-import {View, Text, ImageBackground, Modal} from 'react-native';
+import {View, Text, ImageBackground, Modal,Alert} from 'react-native';
 import React, {useState} from 'react';
 import CustumInput from '../../components/CustumInput';
 import CText from '../../components/Ctext';
@@ -20,6 +20,7 @@ import { db } from '../../components/configuration';
 import { doc, setDoc, updateDoc } from 'firebase/firestore';
 import { useAppDispatch, useAppSelector } from '../../components/redux/hook';
 import { checkLogin } from '../../components/redux/slice/AuthSlice';
+import { useNavigation } from '@react-navigation/native';
 const SignUp = () => {
   const [selectedGender, setSelectedGender] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -31,9 +32,48 @@ const SignUp = () => {
   // const userId=useAppSelector(state=>state.AuthData.uid);
   const [verificationCode, setVerificationCode] = useState('');
     const uId=useAppSelector(state=>state.AuthData.uid);
+    const navigation=useNavigation();
     const dispatch=useAppDispatch();
   const [verificationId, setVerificationId] = useState('');
+  const [showError, setShowError] = useState<any>({
+    FirstName: false,
+    gender:false,
+    email: false,
+    phoneNumber: false,
+
+    allAbove: false,
+   
+  });
+  console.log('error', showError.allAbove);
+ 
+  const  handleFirstName = (val: any) => {
+    if (/^[a-zA-Z0-9_\s]{1,30}$/.test(val)) {
+      setName(val);
+      setShowError({...showError, FirstName: false, allAbove: false});
+    } else {
+      setShowError({...showError, FirstName: true, allAbove: true});
+    }
+  };
+  const handlePhone = (val: any) => {
+    if (/^[0-9]{0,}$/.test(val)) {
+      setPhoneNumber(`+91${val}`);
+      setShowError({...showError, phoneNumber: false, allAbove: false});
+    } else if (val == '') {
+      setShowError({...showError, phoneNumber: true, allAbove: true});
+    } else {
+      setShowError({...showError, phoneNumber: true, allAbove: true});
+    }
+  };
+  const handleEmail = (val: any) => {
+    if (/[\w\-\._]+@[\w\-\._]+\.\w{2,10}/.test(val)) {
+      setEmail(val);
+      setShowError({...showError, email: false, allAbove: false});
+    } else {
+      setShowError({...showError, email: true, allAbove: true});
+    }
+  };
   const signUpWithPhoneNumber = async () => {
+    if(!(showError.allAbove)){
     try {
       const confirmation = await firebase
         .auth()
@@ -44,9 +84,19 @@ const SignUp = () => {
     } catch (error) {
       console.log('Sign-up error:', error);
     }
+  }
+  else{
+    Alert.alert("Enter all field ");
+  }
   };
-  const handleGenderSelect = gender => {
+  const handleGenderSelect = (gender:any) => {
+    if(gender){
     setSelectedGender(gender);
+    setShowError({...showError, gender: false, allAbove: false});
+    }
+    else{
+      setShowError({...showError, gender: true, allAbove: true});
+    }
   };
   const confirmVerificationCode = async () => {
     try {
@@ -64,7 +114,7 @@ const SignUp = () => {
 
       if( user._data!=null){
       tempDart=user._data.userAccount;
-      tempDart.push({phoneNumber,name,email,selectedGender});
+      tempDart.push({phoneNumber,name,email,selectedGender,uId});
      
          await updateDoc(doc(db, 'userAccount', uId), {
           userAccount: tempDart,
@@ -75,10 +125,11 @@ const SignUp = () => {
         else{
           console.log('Hello')
   
-           tempDart.push({phoneNumber,name,email,selectedGender});
+           tempDart.push({phoneNumber,name,email,selectedGender,uId});
           await setDoc(doc(db, 'userAccount', uId), {
             userAccount: tempDart,
           }).catch((e)=>console.log('first', e),)
+          navigation.navigate('home');
         }
       // const randomPassword = Math.random().toString(36).substring(2, 10); // Generate a random password
       // const currentUser = await firebase
@@ -115,13 +166,17 @@ const SignUp = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{marginVertical: 23}}>
             <CText text="Enter your name" style={style.lebleText} />
-
+      
             <CustumInput
               color="#ffff"
               height={50}
               width={270}
-              onHandleChange={val => setName(val)}
+              onHandleChange={val => handleFirstName(val)}
+              showError={showError.FirstName}
             />
+             {showError.FirstName && (
+                <Text style={style.errorText}>Enter valid name</Text>
+              )}
           </View>
           <View style={{marginVertical: 23}}>
             <CText text="Enter Mobile number" style={style.lebleText} />
@@ -129,8 +184,11 @@ const SignUp = () => {
               color="#ffff"
               height={50}
               width={270}
-              onHandleChange={val => setPhoneNumber(`+91${val}`)}
+              onHandleChange={val => handlePhone(val)}
             />
+             {showError.phoneNumber && (
+                  <Text style={style.errorText}>Enter valid Phone Number</Text>
+                )}
           </View>
 
           <View style={{marginVertical: 23, width: 270}}>
@@ -172,8 +230,11 @@ const SignUp = () => {
               color="#ffff"
               height={50}
               width={270}
-              onHandleChange={val => setEmail(val)}
+              onHandleChange={val => handleEmail(val)}
             />
+             {showError.email && (
+                  <Text style={style.errorText}>Enter valid Email</Text>
+                )}
           </View>
 
           <View style={{alignItems: 'center', marginVertical: 27}}>
@@ -248,4 +309,5 @@ const style = StyleSheet.create({
     color: theme.colors.primaryTextColor,
     marginTop: 12,
   },
+  errorText: {color: '#fff', position: 'absolute',bottom:-30},
 });
